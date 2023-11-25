@@ -16,17 +16,21 @@ struct Informer
 };
 
 struct Wektor2D
-{
-    public:
-        Informer informer;
-        double x;
-        double y;
-        std::string destructorMessage;
-    Wektor2D(double a, double b, const std::string& dMsg) : destructorMessage(dMsg)
+{   
+public:
+    Informer informer;
+    std::string destructorMessage;
+    void set_x(double a)
     {
         x = a;
-        y = b;
-        std::cout << "Constructor activated: " << x << "    " << y << '\n';
+    }
+    void set_y(double a)
+    {
+        y = a;
+    }
+    Wektor2D(const std::string& dMsg) : destructorMessage(dMsg)
+    {
+        std::cout << "Constructor activated";
     }
     ~Wektor2D()
     {
@@ -40,18 +44,21 @@ struct Wektor2D
     }
     void print()
     {
-        std::cout << '\n' << x << '\n' << y << '\n';
+        std::cout << '\n' << x << '\n' << y << '\n';        
     }
+    double get_x(){return x;}
+    double get_y(){return y;}
+
+    private:
+        double x;
+        double y;
 };
 
-int main(){
-    Wektor2D first_vector{4.028, 6.932, "First"};
-    Wektor2D second_vector{2.352, 6.321, "Second"};
-    Wektor2D third_vector{9.234, 0.624, "Third"};
+int main()
+{
+    Wektor2D first_vector{"First"};
+    first_vector.set_x(4);
+    first_vector.set_y(6);
     first_vector.norm();
     first_vector.print();
-    second_vector.norm();
-    second_vector.print();
-    third_vector.norm();
-    third_vector.print();
 }
