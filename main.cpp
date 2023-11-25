@@ -1,10 +1,24 @@
 #include <cstdio>
 #include <iostream>
 #include <math.h>
+#include <string>
+
+struct Informer
+{
+    Informer()
+    {
+        std::cout << "Informer constructor" << '\n';
+    }
+    ~Informer()
+    {
+        std::cout << '\n' << "Informer destructor" << '\n';
+    }
+};
 
 struct Wektor2D
 {
     public:
+        Informer informer;
         double x;
         double y;
         std::string destructorMessage;
