@@ -29,20 +29,20 @@ public:
     {
         y = a;
     }
-        double get_x() const {
+    double get_x() const 
+    {
         return x;
     }
-
     double get_y() const 
     {
         return y;
     }
-    Wektor2D(const std::string& dMsg) : destructorMessage(dMsg)
+    Wektor2D(const std::string& dMsg) : destructorMessage(dMsg) // Constructor #1 with custom message, to see which obj is constructed first
     {
         std::cout << "Constructor activated";
     }
-    Wektor2D() : x(0.0), y(0.0) {}
-    Wektor2D(double a, double b) : x(a), y(b) {}
+    Wektor2D() : x(0.0), y(0.0) {}                              // Constructor #2 Default constructor with no parameters
+    Wektor2D(double a, double b) : x(a), y(b) {}                // Constructor #3 with (X,Y) parameters of vector
     ~Wektor2D()
     {
         std::cout << "\n" << "Destructor activated: " << destructorMessage;
@@ -60,7 +60,7 @@ public:
     double get_x(){return x;}
     double get_y(){return y;}
 
-    private:
+    private: 
         double x;
         double y;
 };
@@ -90,6 +90,5 @@ int main()
     Wektor2D il = first*second;
     first.print();
     second.print();
-    std::cout << '\n' << sum << '\n';
-    std::cout << '\n' << il << '\n';
+    std::cout << '\n' << sum << '\n' << il << '\n';
 }
