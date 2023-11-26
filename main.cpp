@@ -33,7 +33,11 @@ public:
         double y = r*sin(theta);
         return Wektor2D(x, y);
     }
-
+    static Wektor2D cartesian_coordinates(double a, double b)
+    {
+        return Wektor2D(a, b);
+    }
+    
     double norm()                                               // Calculates norm of the vector
     { 
         double n = sqrt(x*x + y*y);
@@ -54,11 +58,6 @@ public:
 
     Wektor2D() : x(0.0), y(0.0) {++num_wek;}                    // Constructor #2 Default constructor with no parameters
 
-    Wektor2D(double a, double b) : x(a), y(b)                   // Constructor #3 with (X,Y) parameters of vector
-    {
-        ++num_wek;
-    }                
-    
     //Destructor
     ~Wektor2D()                                                 // Destructor with message from Constructor #1
     {
@@ -66,10 +65,18 @@ public:
         --num_wek;
     }
 
-    private:    // x and y are kept private, while only set() and get() are public
+    friend Wektor2D operator+(const Wektor2D& w1, const Wektor2D& w2); // declaring these functions as 'friend'
+    friend Wektor2D operator*(const Wektor2D& w1, const Wektor2D& w2); // gives them acces to private members and methods
+
+    private:    
         double x;
         double y;
-        static int num_wek;
+        static int num_wek;                                     // Member which keeps track of number of vectors
+
+    Wektor2D(double a, double b) : x(a), y(b)                   // Constructor #3 with (X,Y) parameters of vector
+    {
+        ++num_wek;
+    }  
 };
 
 Wektor2D operator+(const Wektor2D& w1, const Wektor2D& w2)
@@ -90,15 +97,14 @@ std::ostream& operator<<(std::ostream& os, const Wektor2D& vector)
     return os;
 }
 
-
 int Wektor2D::num_wek=0;
 
 int main()
 {
     {
-        Wektor2D first(4, 2.38);        //Brackets make this vector a local variable
-    }                                        //After it goes out of scope, destructor is called
-    Wektor2D second(3.5, 9);
+        Wektor2D first = Wektor2D::cartesian_coordinates(4, 2.38);        //Brackets make this vector a local variable
+    }                                                                          //After it goes out of scope, destructor is called
+    Wektor2D second = Wektor2D::cartesian_coordinates(3.5, 9);
     Wektor2D third = Wektor2D::polar_coordinates(5, M_PI/4);
     //Wektor2D sum = first + second;
     //Wektor2D il = first*second;
