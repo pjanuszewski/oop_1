@@ -25,7 +25,15 @@ public:
     void set_y(double a)  {y = a;}
     double get_x() const  {return x;}
     double get_y() const  {return y;}
-    double get_num_wek() const {return num_wek;}
+    static double get_num_wek() {return num_wek;}
+
+    static Wektor2D polar_coordinates(double r, double theta)   //This method allows to initialize vector with polar
+    {                                                           //coordinates, by calculating cartesian vars.
+        double x = r*cos(theta);
+        double y = r*sin(theta);
+        return Wektor2D(x, y);
+    }
+
     double norm()                                               // Calculates norm of the vector
     { 
         double n = sqrt(x*x + y*y);
@@ -44,7 +52,7 @@ public:
         ++num_wek;
     }
 
-    Wektor2D() : x(0.0), y(0.0) {++num_wek;}                              // Constructor #2 Default constructor with no parameters
+    Wektor2D() : x(0.0), y(0.0) {++num_wek;}                    // Constructor #2 Default constructor with no parameters
 
     Wektor2D(double a, double b) : x(a), y(b)                   // Constructor #3 with (X,Y) parameters of vector
     {
@@ -91,12 +99,13 @@ int main()
         Wektor2D first(4, 2.38);        //Brackets make this vector a local variable
     }                                        //After it goes out of scope, destructor is called
     Wektor2D second(3.5, 9);
-    Wektor2D third(7, 5.25);
+    Wektor2D third = Wektor2D::polar_coordinates(5, M_PI/4);
     //Wektor2D sum = first + second;
     //Wektor2D il = first*second;
     //first.print();
     second.print();
     third.print();
-    std::cout << '\n' << third.get_num_wek();
+    std::cout << '\n' << Wektor2D::get_num_wek();   //Because the method get_num_wek() is static, you don't have
+                                                    //to reference the object, but the class itself
     //std::cout << '\n' << sum << '\n' << il << '\n';
 }
