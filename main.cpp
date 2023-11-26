@@ -31,8 +31,6 @@ public:
     }
     double get_x() const 
     {
-    double get_x() const 
-    {
         return x;
     }
     double get_y() const 
