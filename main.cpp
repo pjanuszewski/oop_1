@@ -1,3 +1,4 @@
+#include <cmath>
 #include <cstdio>
 #include <iostream>
 #include <math.h>
@@ -28,10 +29,20 @@ public:
     {
         y = a;
     }
+        double get_x() const {
+        return x;
+    }
+
+    double get_y() const 
+    {
+        return y;
+    }
     Wektor2D(const std::string& dMsg) : destructorMessage(dMsg)
     {
         std::cout << "Constructor activated";
     }
+    Wektor2D() : x(0.0), y(0.0) {}
+    Wektor2D(double a, double b) : x(a), y(b) {}
     ~Wektor2D()
     {
         std::cout << "\n" << "Destructor activated: " << destructorMessage;
@@ -54,11 +65,31 @@ public:
         double y;
 };
 
+Wektor2D operator+(const Wektor2D& w1, const Wektor2D& w2)
+{
+    double x1 = w1.get_x() + w2.get_x();
+    double y1 = w1.get_y() + w2.get_y();
+    return Wektor2D(x1,y1);
+}
+Wektor2D operator*(const Wektor2D& w1, const Wektor2D& w2)
+{
+    double x1 = w1.get_x() * w2.get_x();
+    double y1 = w1.get_y() * w2.get_y();
+    return Wektor2D(x1, y1);
+}
+std::ostream& operator<<(std::ostream& os, const Wektor2D& vector) {
+    os << "x: " << vector.get_x() << ", y: " << vector.get_y();
+    return os;
+}
+
 int main()
 {
-    Wektor2D first_vector{"First"};
-    first_vector.set_x(4);
-    first_vector.set_y(6);
-    first_vector.norm();
-    first_vector.print();
+    Wektor2D first(4, 2);
+    Wektor2D second(3, 9);
+    Wektor2D sum = first + second;
+    Wektor2D il = first*second;
+    first.print();
+    second.print();
+    std::cout << '\n' << sum << '\n';
+    std::cout << '\n' << il << '\n';
 }
