@@ -19,7 +19,7 @@ struct Informer
 struct Wektor2D
 {   
 public:
-    Informer informer;
+    Informer informer;                                          // Create object of class Informer
     std::string destructorMessage;
     void set_x(double a)
     {
@@ -29,26 +29,27 @@ public:
     {
         y = a;
     }
-        double get_x() const {
+    double get_x() const 
+    {
         return x;
     }
-
     double get_y() const 
     {
         return y;
     }
-    Wektor2D(const std::string& dMsg) : destructorMessage(dMsg)
+
+    Wektor2D(const std::string& dMsg) : destructorMessage(dMsg) // Constructor #1 with custom message for the destructor
     {
         std::cout << "Constructor activated";
     }
-    Wektor2D() : x(0.0), y(0.0) {}
-    Wektor2D(double a, double b) : x(a), y(b) {}
-    ~Wektor2D()
+    Wektor2D() : x(0.0), y(0.0) {}                              // Constructor #2 Default constructor with no parameters
+    Wektor2D(double a, double b) : x(a), y(b) {}                // Constructor #3 with (X,Y) parameters of vector
+    ~Wektor2D()                                                 // Destructor with message from Constructor #1
     {
         std::cout << "\n" << "Destructor activated: " << destructorMessage;
     }
-    double norm()
-    {
+    double norm()                                               // Calculates norm of the vector
+    { 
         double n = sqrt(x*x + y*y);
         std::cout << '\n' << n << '\n';
         return n;
@@ -57,10 +58,8 @@ public:
     {
         std::cout << '\n' << x << '\n' << y << '\n';        
     }
-    double get_x(){return x;}
-    double get_y(){return y;}
 
-    private:
+    private:    // x and y are kept private, while only set() and get() are public
         double x;
         double y;
 };
@@ -90,6 +89,5 @@ int main()
     Wektor2D il = first*second;
     first.print();
     second.print();
-    std::cout << '\n' << sum << '\n';
-    std::cout << '\n' << il << '\n';
+    std::cout << '\n' << sum << '\n' << il << '\n';
 }
