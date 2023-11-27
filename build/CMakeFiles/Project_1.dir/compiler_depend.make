@@ -172,8 +172,14 @@ CMakeFiles/Project_1.dir/main.cpp.o: ../main.cpp \
   /home/pawelj/miniconda3/x86_64-conda-linux-gnu/include/c++/13.2.0/bits/ostream.tcc \
   /home/pawelj/miniconda3/x86_64-conda-linux-gnu/include/c++/13.2.0/istream \
   /home/pawelj/miniconda3/x86_64-conda-linux-gnu/include/c++/13.2.0/bits/istream.tcc \
-  /home/pawelj/miniconda3/x86_64-conda-linux-gnu/include/c++/13.2.0/math.h
+  /home/pawelj/miniconda3/x86_64-conda-linux-gnu/include/c++/13.2.0/math.h \
+  ../Wektor2D.h \
+  ../Informer.h
 
+
+../Informer.h:
+
+../Wektor2D.h:
 
 /home/pawelj/miniconda3/x86_64-conda-linux-gnu/include/c++/13.2.0/math.h:
 

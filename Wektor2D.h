@@ -3,7 +3,8 @@
 #include <cmath>
 #include <string>
 
-class Wektor2D {
+class Wektor2D 
+{
 public:
     Informer informer;                                          // Create object of class Informer
     std::string destructorMessage;
