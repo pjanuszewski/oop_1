@@ -15,7 +15,6 @@ struct Informer
         std::cout << '\n' << "Informer destructor" << '\n';
     }
 };
-
 struct Wektor2D
 {   
 public:
@@ -78,7 +77,6 @@ public:
         ++num_wek;
     }  
 };
-
 Wektor2D operator+(const Wektor2D& w1, const Wektor2D& w2)
 {
     double x1 = w1.get_x() + w2.get_x();
