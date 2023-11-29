@@ -31,6 +31,5 @@
 *.out
 *.app
 
-database/build
-database/.cache
-data/CMakeLists.txt
+./build
+./CMakeLists.txt
