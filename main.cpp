@@ -81,7 +81,6 @@ class Wektor
         unsigned int capacity;
 };
 
-
 int main()
 {
     double A[5]{13.32, 54.78, 34.01, 81.5, 5.12};
