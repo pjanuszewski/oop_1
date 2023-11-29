@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Site BuildName="Linux-x86_64-conda-linux-gnu-g++"
+	BuildStamp="20231129-1646-Experimental"
+	Name="laptop"
+	Generator="ctest-3.22.1"
+	CompilerName="/home/pawelj/miniconda3/bin/x86_64-conda-linux-gnu-g++"
+	CompilerVersion="13.2.0"
+	OSName="Linux"
+	Hostname="laptop"
+	OSRelease="6.2.0-36-generic"
+	OSVersion="#37~22.04.1-Ubuntu SMP PREEMPT_DYNAMIC Mon Oct  9 15:34:04 UTC 2"
+	OSPlatform="x86_64"
+	Is64Bits="1"
+	VendorString="GenuineIntel"
+	VendorID="Intel Corporation"
+	FamilyID="6"
+	ModelID="154"
+	ProcessorCacheSize="24576"
+	NumberOfLogicalCPU="20"
+	NumberOfPhysicalCPU="14"
+	TotalVirtualMemory="0"
+	TotalPhysicalMemory="15685"
+	LogicalProcessorsPerPhysical="1"
+	ProcessorClockFrequency="1159.23"
+	>
+	<Testing>
+		<StartDateTime>Nov 29 17:46 CET</StartDateTime>
+		<StartTestTime>1701276412</StartTestTime>
+		<TestList/>
+		<EndDateTime>Nov 29 17:46 CET</EndDateTime>
+		<EndTestTime>1701276412</EndTestTime>
+		<ElapsedMinutes>0</ElapsedMinutes>
+	</Testing>
+</Site>
