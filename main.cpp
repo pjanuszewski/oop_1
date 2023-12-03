@@ -9,7 +9,7 @@
 class Wektor
 {
     public:
-        double *wektor;
+        //double *wektor;
         Wektor(const int& n, const int& length) : capacity(n), wektor(new double[n]), vector_size(length)
         {
             for(int i=0; i < n; i++)
@@ -72,11 +72,21 @@ class Wektor
             }
         }
 
-        double &operator[](int index)
+        double &operator[](const int &index)
         {
-            return wektor[index];
+            if (index >= 0 && index < vector_size)
+            {
+                return wektor[index];
+            }
+            else 
+            {
+                std::cerr << "Index out of bound" << std::endl;
+                Wektor::change_size(index);
+                return wektor[index];
+            }
         }
     private:
+        double *wektor;
         unsigned int vector_size;
         unsigned int capacity;
 };
@@ -100,6 +110,11 @@ int main()
 
     std::cout << "Vector size: " << my_vector.get_vector_size() << std::endl;
     std::cout << "Vector capacity: " << my_vector.get_capacity() << std::endl;
-
+    my_vector[0] = 42.;
+    my_vector.print();
+    double a = my_vector[0];
+    std::cout << a << '\n';
+    a++;
+    std::cout << a << '\n';
     return 0;
 }
