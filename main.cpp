@@ -74,13 +74,18 @@ class Wektor
 
         double &operator[](const int &index)
         {
-            if (index >= 0 && index < vector_size)
+            if (index < 0)
+            {
+                std::cout << "Index can't be negative. Index set to 0." << std::endl;
+                return wektor[0];
+            }
+            if (index < vector_size)
             {
                 return wektor[index];
             }
             else 
             {
-                std::cerr << "Index out of bound" << std::endl;
+                std::cerr << "Index out of bound. Size increased to: " << index << std::endl;
                 Wektor::change_size(index);
                 return wektor[index];
             }
@@ -116,5 +121,12 @@ int main()
     std::cout << a << '\n';
     a++;
     std::cout << a << '\n';
+    double b = my_vector[16];
+    my_vector.print();
+    try {
+        double out_of_bounds = my_vector[-3];  // This should throw an error
+    } catch (const std::out_of_range& e) {
+        std::cout << "Caught an out-of-range exception: " << e.what() << '\n';
+    }
     return 0;
 }
