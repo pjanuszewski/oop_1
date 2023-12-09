@@ -6,6 +6,39 @@
 #include "Wektor2D.h"
 #include "Informer.h"
 
+struct Kokardka
+{
+    Kokardka()      { dlugosc = 42; }
+    Kokardka(int d) { dlugosc = d; }
+    
+    int dlugosc;
+};
+
+struct Prezent
+{
+    Prezent(int dk)
+    {
+        std::cout << k.dlugosc << std::endl;
+        k.dlugosc = dk;
+        std::cout << k.dlugosc << std::endl;
+    }
+    
+    Kokardka k;
+    // Inne pola ...
+};
+
+struct Liczba
+{
+    Liczba(int w)           : wartosc{w}         { 
+        std::cout << "Konstruktor z argumentem: " << w << std::endl;
+    }
+    /* Liczba(const Liczba& l) : wartosc{l.wartosc} {
+        std::cout << "Konstruktor kopiujacy: " << wartosc << std::endl;
+    } */
+    
+    int wartosc;
+};
+
 class Wektor
 {
     public:
@@ -15,6 +48,13 @@ class Wektor
             for(int i=0; i < n; i++)
             {
                 wektor[i] = 0.0;
+            }
+        }
+        Wektor(const Wektor& w) : capacity(w.capacity), wektor(new double[w.capacity]), vector_size(w.vector_size)
+        {
+            for(int i=0; i < w.capacity; i++)
+            {
+                wektor[i] = w.wektor[i];
             }
         }
         ~Wektor()
@@ -98,7 +138,7 @@ class Wektor
 
 int main()
 {
-    double A[5]{13.32, 54.78, 34.01, 81.5, 5.12};
+/*  double A[5]{13.32, 54.78, 34.01, 81.5, 5.12};
     Wektor my_vector(10,5);
     my_vector.print();
 
@@ -127,6 +167,24 @@ int main()
         double out_of_bounds = my_vector[-3];  // This should throw an error
     } catch (const std::out_of_range& e) {
         std::cout << "Caught an out-of-range exception: " << e.what() << '\n';
+    } */
+/*     Prezent prezent(15);
+    Liczba a{1};
+    Liczba b{a};  // W celu konstrukcji b wołamy konstruktor kopiujący z argumentem 'a'
+    Liczba c = a; // Tutaj także wołamy konstruktor kopiujący, vide lab. 1
+    std::cout << "b: " << b.wartosc << std::endl;
+    std::cout << "c: " << c.wartosc << std::endl; */
+
+    double A[5]{13.32, 54.78, 34.01, 81.5, 5.12};
+    Wektor my_vector(10,5);
+    my_vector.print();
+
+    for (int i = 0; i < sizeof(A) / sizeof(A[0]); i++)
+    {
+        my_vector[i] = A[i];
     }
+    my_vector.print();
+    Wektor copy_vector(my_vector);
+    copy_vector.print();
     return 0;
 }
