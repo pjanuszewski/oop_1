@@ -50,6 +50,7 @@ class Wektor
                 wektor[i] = 0.0;
             }
         }
+
         Wektor(const Wektor& w) : capacity(w.capacity), wektor(new double[w.capacity]), vector_size(w.vector_size)
         {
             for(int i=0; i < w.capacity; i++)
@@ -57,6 +58,20 @@ class Wektor
                 wektor[i] = w.wektor[i];
             }
         }
+
+        Wektor pow2(Wektor&& w)
+        {
+            Wektor result 
+            {
+                std::move(w)
+            };
+            for(int i=0; i < result.capacity; i++)
+            {
+                result.wektor[i] = result.wektor[i] * result.wektor[i];
+            }
+            return result;
+        }
+
         ~Wektor()
         {
             delete[] wektor;
@@ -130,6 +145,37 @@ class Wektor
                 return wektor[index];
             }
         }
+        Wektor &operator=(const Wektor &b)
+        {
+            if (this == &b)
+            {
+                return *this;
+            }
+            else
+            {
+                delete[] wektor;
+                capacity = b.capacity;
+                wektor = new double[capacity];
+                for (int i = 0; i < capacity; i++)
+                {
+                    wektor[i] = b.wektor[i];
+                }
+                return *this;
+            }
+        }
+        Wektor &operator=(Wektor &&b)
+        {
+            if (this != &b)
+            {
+                delete[] wektor;
+                capacity = b.capacity;
+                wektor = b.wektor;
+                b.wektor = nullptr;
+                b.capacity = 0;
+                b.vector_size = 0;
+            }
+            return *this;
+        }
     private:
         double *wektor;
         unsigned int vector_size;
@@ -179,12 +225,22 @@ int main()
     Wektor my_vector(10,5);
     my_vector.print();
 
+ 
     for (int i = 0; i < sizeof(A) / sizeof(A[0]); i++)
     {
         my_vector[i] = A[i];
     }
     my_vector.print();
-    Wektor copy_vector(my_vector);
-    copy_vector.print();
+/*    Wektor copy_vector(my_vector);
+    copy_vector.print(); */
+
+    Wektor w2 = my_vector.pow2(std::move(my_vector));
+    w2.print();
+
+    Wektor w3 = std::move(w2);
+    w3.print();
+    // w2.print(); Unsafe operation, w2 is now empty and should not be used
+    
+
     return 0;
 }
