@@ -4,27 +4,68 @@
 #include <math.h>
 #include <string>
 
-class Figura
+class Shape
 {
 public:
-    Figura() : pole(0) {};
-    Figura(const double &pole) : pole(pole){}; 
-    double get_pole() const
+    Shape() : area(0) 
     {
-        return pole;
-    };
-    void set_pole(double p)
-    {
-        pole = p;
+
     };
 
-    ~Figura() 
+    Shape(const double &area) : area(area)
+    {
+
+    }; 
+
+    double get_area() const
+    {
+        return area;
+    };
+
+    void set_area(double p)
+    {
+        area = p;
+    };
+
+    ~Shape() 
     {
 
     };
 
 private:
-    double pole;
+    double area;
+};
+
+class Circle : public Shape
+{
+public:
+    Circle(const double &radius) : radius(radius)
+    {
+        set_area(M_PI * radius * radius);
+    };
+    double get_radius() const
+    {
+        return radius;
+    };
+
+private:
+    double radius;
+};
+
+class Square : public Shape
+{
+public:
+    Square(const double &side) : side(side)
+    {
+        set_area(side * side);
+    };
+    double get_side() const
+    {
+        return side;
+    };
+
+private:
+    double side;
 };
 
 int main()
