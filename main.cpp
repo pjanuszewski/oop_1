@@ -1,8 +1,10 @@
 #include <cmath>
 #include <cstdio>
 #include <iostream>
+#include <istream>
 #include <math.h>
 #include <string>
+#include <tuple>
 
 
 class Geometry
@@ -22,7 +24,6 @@ public:
     };
 
 };
-
 class Shape_visitor_base;
 
 class Shape : public Geometry
@@ -106,12 +107,30 @@ public:
             vector[i]->id();
         }
     };
+    void visit_all(Shape_visitor_base &visitor)
+    {
+        for(int i = 0; i < number_of_shapes; i++)
+        {
+            vector[i]->accept(visitor);
+        }
+    };
 protected:
     unsigned int number_of_shapes = 0;
 private:
     Shape** vector;
 };
-class Shape_visitor_base;
+
+class Circle;
+class Square;
+
+class Shape_visitor_base
+{
+public:
+    virtual void visit(Square &shape) = 0;
+    virtual void visit(Circle &shape) = 0;
+    virtual ~Shape_visitor_base() = default;
+};
+
 class Circle : public Shape
 {
 public:
@@ -142,7 +161,7 @@ private:
     
     double radius;
 };
-class Shape_visitor_base;
+
 class Square : public Shape
 {
 public:
@@ -173,18 +192,10 @@ private:
     double side;
 };
 
-class Shape_visitor_base
-{
-public:
-    virtual void visit(Square &shape) = 0;
-    virtual void visit(Circle &shape) = 0;
-    virtual ~Shape_visitor_base() = default;
-};
-
 class Shape_Factory
 {
 public:
-    Shape* operator()(const std::string &name, const double &value)
+    Shape* operator()(const std::string& name, const double &value)
     {
         if(name == "Circle")
         {
@@ -208,11 +219,30 @@ void id(const Shape &shape)
     shape.id();
 };
 
+class Visitor_printer : public Shape_visitor_base, public Square, public Circle
+{
+public:
+    void visit(Square &shape) override
+    {
+        shape.id();
+    };
+    void visit(Circle &shape) override
+    {
+        shape.id();
+    };
+};
+
 int main()
 {
-    //Square square_1(5);
-    //Circle circle_1(5);
-
-    Geometry shape_1;
+    std::string in1;
+    std::getline(std::cin, in1);
+    double in2;
+    std::cin >> in2;
+    Shape_Factory S1, S2, S3;
+    Shape_Vector V1;
+    V1.add(S1("Circle", 3.0));
+    V1.add(S2("Square", 5.0));
+    V1.add(S3(in1, in2));
+    V1.id_all();
     return 0;
 }
