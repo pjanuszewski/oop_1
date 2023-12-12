@@ -4,6 +4,7 @@
 #include <math.h>
 #include <string>
 
+
 class Geometry
 {
 public:
@@ -25,14 +26,9 @@ public:
 class Shape : public Geometry
 {
 public:
-    Shape() : area(0) 
-    {
-
-    };
-
     Shape(const double &area) : area(area)
     {
-
+        
     }; 
 
     double get_area() const
@@ -55,6 +51,45 @@ private:
     double area;
 protected:
     std::string name;
+};
+
+class Shape_Vector
+{
+public:
+    Shape_Vector() : wektor(new Shape*[1000])
+    {
+        std::cout << "Shape_Vector constructor" << std::endl;
+    };
+    virtual ~Shape_Vector()
+    {
+        for(int i = 0; i < number_of_shapes; i++)
+        {
+            delete wektor[i];
+        }
+        delete[] wektor;
+        std::cout << "Shape_Vector destructor" << std::endl;
+    };
+    void add(Shape* shape)
+    {
+        wektor[number_of_shapes] = shape;
+        number_of_shapes++;
+    };
+    Shape* operator[](const unsigned int &index)
+    {
+        if(index >= number_of_shapes)
+        {
+            std::cout << "Index out of range" << std::endl;
+            return nullptr;
+        }
+        else
+        {
+            return wektor[index];
+        }
+    };
+protected:
+    unsigned int number_of_shapes = 0;
+private:
+    Shape** wektor;
 };
 
 class Circle : public Shape
