@@ -31,5 +31,7 @@
 *.out
 *.app
 
-./build
-./CMakeLists.txt
+/build
+/CMakeLists.txt
+/.vscode
+/.cache/clangd/index
