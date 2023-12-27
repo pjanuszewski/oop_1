@@ -1,42 +1,18 @@
-#include <cmath>
-#include <cstddef>
-#include <cstdio>
-#include <cstdlib>
-#include <iostream>
-#include <iterator>
-#include <math.h>
-#include <string>
-#include <vector>
-#include "Human.hpp"
+# include "Human.hpp"
+# include <list>
+# include <iostream>
 
 int main()
 {
-    std::vector<Human> v;
-    std::string name;
-    while (true)
-    {
-        std::cin >> name;
-        if (name == "q")
-        {
-            break;
-        }
-        else if (name == "pop")
-        {
-            if (!v.empty())
-            {
-                v.pop_back();
-            }
-        }
-        else
-        {
-            Human h(name, 0, true, true);
-            v.push_back(std::move(h));
-            std::cout << '\n' << v.back().getName() << '\n';
-        }
-    }
-    for (int i = 0; i < v.size(); ++i)
-    {
-        std::cout << v[i].getName() << '\n';
-    }
+    std::list<int> list;
+    list.push_front(10); // error: no match for ‘operator[]’ (operand types are ‘std::list<int>’ and ‘int’)
+    list.emplace_back(20);
+    list.emplace_front(30);
+    list.emplace_front(23);
+    list.emplace_back(54);
+    std::cout << list.front() << std::endl;
+    std::cout << list.back() << std::endl;
+    std::cout << &list.front() << std::endl;
+    std::cout << &list.back() << std::endl;
     return 0;
 }
