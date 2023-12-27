@@ -10,22 +10,9 @@
 
 int main()
 {
-    std::vector<int> v;
-    for (int i = 0; i < 100; ++i)
-    {
-        v.emplace_back(rand() % 100);
-        std::cout << v[i] << std::endl;
-        std::cout << v.capacity() << std::endl;
-        std::cout << v.size() << '\n' << std::endl;
-        std::cout << &v[0] << std::endl;
-    }
-    std::size_t non_empty_vectors = 0;
-    for (const auto& vec : v)
-    {
-        if (vec != 0)
-        {
-            ++non_empty_vectors;
-        }
-    }
+    std::vector<int> v{100, 42};
+    std::cout << v.size() << std::endl;
+    std::cout << v.capacity() << std::endl;
+    std::cout << v[99] << std::endl;
     return 0;
 }
