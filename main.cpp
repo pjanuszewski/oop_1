@@ -2,6 +2,7 @@
 #include <concepts>
 #include <cstddef>
 #include <cstdio>
+#include <exception>
 #include <iterator>
 #include <new>
 #include <random>
@@ -9,6 +10,7 @@
 #include <variant>
 #include <vector>
 #include <numeric>
+#include <typeinfo>
 
 /////////////////////////////////////////////////////
 // Przeklej kawalek kodu ponizej. Wymagany C++20!
@@ -75,32 +77,42 @@ std::vector< size_t > sorted_indices(ConstIt first, ConstIt last, Comp compare) 
     return indices;
 }
 
+struct Informer
+{
+    Informer()
+    {
+        std::cout << "Informer constructor" << '\n';
+    }
+    ~Informer()
+    {
+        std::cout << '\n' << "Informer destructor" << '\n';
+    }
+};
+
+double divide(const int& a, const int& b)
+{
+    if (b == 0)
+    {
+        Informer informer;
+        int exception1{ 1 };
+        throw exception1;
+        
+    }
+    return double(a)/double(b);
+}
+
 int main() 
 {
+    Informer informer;
     int a, b;
     std::cin >> a >> b;
-
     try
     {
-        auto v = std::vector(a, 0);
-        std::variant<int, std::string> var;
-        if(b % 2 == 0)
-        {
-            var = 42;
-        }
-        else    
-        {
-            var = "nieparzyste";
-        }
-        std::cout << std::get<int>(var) << '\n';
+        std::cout << '\n' << divide(a, b) << '\n';
     }
-    catch(const std::bad_alloc& e)
+    catch(int exception1)
     {
-        std::cout << "Bad allocation: " << e.what() << '\n';
-    }
-    catch(const std::bad_variant_access e)
-    {
-        std::cout << "Bad variant access: " << e.what() << '\n';
+        std::cout << "Cannot divide by 0";
     }
     catch(...)
     {
