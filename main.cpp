@@ -5,6 +5,7 @@
 #include <iterator>
 #include <new>
 #include <random>
+#include <string>
 #include <variant>
 #include <vector>
 #include <numeric>
@@ -76,11 +77,22 @@ std::vector< size_t > sorted_indices(ConstIt first, ConstIt last, Comp compare) 
 
 int main() 
 {
-    int size;
-    std::cin >> size;
+    int a, b;
+    std::cin >> a >> b;
+
     try
     {
-        makeRandomVector(size,0,0);
+        auto v = std::vector(a, 0);
+        std::variant<int, std::string> var;
+        if(b % 2 == 0)
+        {
+            var = 42;
+        }
+        else    
+        {
+            var = "nieparzyste";
+        }
+        std::cout << std::get<int>(var) << '\n';
     }
     catch(const std::bad_alloc& e)
     {
