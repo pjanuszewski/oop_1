@@ -1,8 +1,11 @@
 #include <algorithm>
 #include <concepts>
+#include <cstddef>
 #include <cstdio>
 #include <iterator>
+#include <new>
 #include <random>
+#include <variant>
 #include <vector>
 #include <numeric>
 
@@ -60,92 +63,35 @@ private:
     int a;
 };
 
+template < typename ConstIt, typename Comp >
+std::vector< size_t > sorted_indices(ConstIt first, ConstIt last, Comp compare) {
+    std::vector<size_t> indices(std::distance(first, last));
+    std::iota(indices.begin(), indices.end(), 0);
+
+    std::sort(indices.begin(), indices.end(),
+        [&](size_t a, size_t b) { return compare(*(first + a), *(first + b)); });
+
+    return indices;
+}
+
 int main() 
 {
-   /* constexpr auto print_vector = [](const auto& vec) {
-        for (const auto& el : vec) std::cout << el << ' ';
-        std::cout << '\n';
-    };
-    auto v1 = makeRandomVector<int>(12, 0, 10);
-    print_vector(v1);
-    std::sort(v1.begin(), v1.end());
-    print_vector(v1);
-    std::cout << '\n' << std::count(v1.begin(), v1.end(), 7) << '\n';
-    std::sort(v1.begin(), v1.end(), std::greater<>{});
-    print_vector(v1);
-    std::cout << '\n' << std::count_if(v1.begin(), v1.end(), [](auto el) { return el > 7;}) << '\n';
-    Foo obiekt([]()
+    int size;
+    std::cin >> size;
+    try
     {
-        int temp;
-        std::cin >> temp;
-        return temp;
+        makeRandomVector(size,0,0);
     }
-    ());
-    std::cout << std::count_if(v1.begin(), v1.end(), [obiekt](auto el) { return el > obiekt.getA();}) << '\n'; 
-    auto val = [](){int v; std::cin >> v; return v;}();
-    std::cout << std::count_if(v1.begin(), v1.end(), [&](auto el){return el > val;}) << '\n';*/
-
-/*     std::string string_1;
-    std::getline(std::cin, string_1);
-    auto it = std::adjacent_find(string_1.begin(), string_1.end());
-    if (it == string_1.end())
+    catch(const std::bad_alloc& e)
     {
-        std::cout << 0 << '\n';
+        std::cout << "Bad allocation: " << e.what() << '\n';
     }
-    else
+    catch(const std::bad_variant_access e)
     {
-        std::cout << 1 << '\n';
+        std::cout << "Bad variant access: " << e.what() << '\n';
     }
-    
-    std::string string_2 = "abc";
-    auto it_2 = std::search(string_1.begin(), string_1.end(), string_2.begin(), string_2.end());
-    if (it_2 != string_1.end()) {
-        std::cout << "Found\n";
-    } else {
-        std::cout << "Not Found\n";
+    catch(...)
+    {
+        std::cout << "Error";
     }
-    std::reverse(string_1.begin(), string_1.end());
-    std::cout << string_1 << '\n';
-     */
-    auto print_vector = [](const auto& vec) {
-        for (const auto& el : vec) std::cout << el << ' ';
-        std::cout << '\n';
-    };
-
-    auto v1 = makeRandomVector<double>(10, 0, 10);
-    print_vector(v1);
-    std::cout << std::inner_product(v1.begin(), v1.end(), v1.begin(), 0.0) << '\n';
-
-    auto v2 = makeRandomVector<int>(10, 0, 10);
-    print_vector(v2);
-    auto a = std::find(v2.begin(), v2.end(), 7);
-    std::sort(v2.begin(), a);
-    print_vector(v2);
-
-    auto v3 = makeRandomVector<int>(10, 0, 10);
-    print_vector(v3);
-    v3.erase(std::remove(v3.begin(), v3.end(), 7), v3.end());
-    print_vector(v3);
-    std::cout << size(v3) << '\n';
-
-    auto v4 = makeRandomVector<int>(10, 0, 10);
-    print_vector(v4);
-    std::rotate(v4.begin(), std::find(v4.begin(), v4.end(), 7), v4.end());
-    print_vector(v4);
-
-    auto v5 = makeRandomVector<double>(10, -1, 1);
-    print_vector(v5);
-    std::any_of(v5.begin(), v5.end(), [](auto el) { return el > 0.9; }) ? std::cout << "Tak\n" : std::cout << "Nie\n";
-
-    std::transform(v5.begin(), v5.end(), v5.begin(), [](auto el) { return sin(el); });
-    print_vector(v5);
-
-    auto v6 = makeRandomVector<int>(10, 0, 10);
-    print_vector(v6);
-    auto pivot = std::partition(v6.begin(), v6.end(), [](auto el) { return el > 6; });
-    std::sort(v6.begin(), pivot);
-    print_vector(v6);
-    std::sort(pivot, v6.end());
-    print_vector(v6);
-    return 0;
 }
